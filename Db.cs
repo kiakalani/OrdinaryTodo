@@ -38,17 +38,20 @@ public class TodoCategory
         this.name = name;
     }
 }
-[PrimaryKey(nameof(for_item), nameof(reminder))]
+
+[PrimaryKey(nameof(for_item), nameof(reminder), nameof(for_category))]
 public class TodoReminder
 {
 
     public string for_item {get; set;}
+    public string for_category {get; set;}
 
     public UInt64 reminder {get; set;}
 
-    public TodoReminder(string for_item, UInt64 reminder) {
+    public TodoReminder(string for_item, string for_category, UInt64 reminder) {
         this.for_item = for_item;
         this.reminder = reminder;
+        this.for_category = for_category;
     }
 }
 

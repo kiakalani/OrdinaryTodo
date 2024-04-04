@@ -29,4 +29,5 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+new TodoAdditions(app, db);
 app.Run();

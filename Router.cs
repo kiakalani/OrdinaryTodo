@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.SignalR;
 
-abstract class RestRouter
+public abstract class RestRouter
 {
 
     private string baseUrl;

@@ -1,0 +1,184 @@
+@page "/home"
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To Do List</title>
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">-->
+    <style>
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+    </style>
+  </head>
+  <body>
+  
+<!--
+  Icons for the page
+-->
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="sun" viewBox="0 0 16 16">
+    <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+  </symbol>
+  <symbol id="calendar" viewBox="0 0 16 16">
+    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+    <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
+  </symbol>
+  <symbol id="plus" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+  </symbol>
+</svg>
+
+<main class="d-flex flex-nowrap">
+
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-success-subtle" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <span class="fs-4">To Do List</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" aria-current="page">
+          <svg class="bi bi-sun me-2" width="16" height="16"><use xlink:href="#sun"/></svg>
+          My Day
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-body-emphasis">
+          <svg class="bi bi-calendar2 me-2" width="16" height="16"><use xlink:href="#calendar"/></svg>
+          Planned
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="new-list">
+      <a href="#" class="nav-link link-body-emphasis">
+        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#plus"/></svg>
+        New List
+      </a>
+    </div>
+  </div>
+
+  <div class="vr"></div>
+
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-info-subtle" style="width: 500px;">
+    <div class="list-group">
+      <label class="list-group-item d-flex gap-3">
+        <input class="form-check-input flex-shrink-0" type="checkbox" value="" checked style="font-size: 1.375em;">
+        <span class="pt-1 form-checked-content">
+          <strong>Finish sales report</strong>
+          <small class="d-block text-body-secondary">
+            <svg class="bi bi-calendar2 me-2" width="16" height="16"><use xlink:href="#calendar"/></svg>
+            1:00–2:00pm
+          </small>
+        </span>
+      </label>
+      <label class="list-group-item d-flex gap-3">
+        <input class="form-check-input flex-shrink-0" type="checkbox" value="" style="font-size: 1.375em;">
+        <span class="pt-1 form-checked-content">
+          <strong>Weekly All Hands</strong>
+          <small class="d-block text-body-secondary">
+            <svg class="bi bi-calendar2 me-2" width="16" height="16"><use xlink:href="#calendar"/></svg>
+            2:00–2:30pm
+          </small>
+        </span>
+      </label>
+      <label class="list-group-item d-flex gap-3">
+        <input class="form-check-input flex-shrink-0" type="checkbox" value="" style="font-size: 1.375em;">
+        <span class="pt-1 form-checked-content">
+          <strong>Out of office</strong>
+          <small class="d-block text-body-secondary">
+            <svg class="bi bi-calendar2 me-2" width="16" height="16"><use xlink:href="#calendar"/></svg>
+            Tomorrow
+          </small>
+        </span>
+      </label>
+      <hr>
+      <div class="new-list mt-auto">
+        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#plus"/></svg>
+        Add a task
+      </div>
+    </div>
+  </div>
+
+  <div class="vr"></div>
+
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-warning-subtle bg-success-subtle" style="width: 280px;">
+    <ul class="nav nav-pills flex-column mb-auto">
+
+      <label>Description</label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+      </div>
+
+      <div class="dropdown mb-2">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Due date
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Today</a></li>
+          <li><a class="dropdown-item" href="#">Tomorrow</a></li>
+          <li>
+            <a class="dropdown-item">
+              Pick a date
+              <input type="date" class="form-control" id="datePicker">
+              <input type="time" class="form-control" id="timePicker">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="dropdown mb-2">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Status
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">To do</a></li>
+          <li><a class="dropdown-item" href="#">Started</a></li>
+          <li><a class="dropdown-item" href="#">In progress</a></li>
+          <li><a class="dropdown-item" href="#">Completed</a></li>
+          <li><a class="dropdown-item" href="#">Overdue</a></li>
+        </ul>
+      </div>
+      <div class="dropdown mb-2">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Importance
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Low</a></li>
+          <li><a class="dropdown-item" href="#">Medium</a></li>
+          <li><a class="dropdown-item" href="#">High</a></li>
+        </ul>
+      </div>
+      <div class="dropdown mb-2">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Reminders
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a class="dropdown-item" href="#">
+              Set reminder
+              <input type="date" class="form-control" id="datePicker">
+              <input type="time" class="form-control" id="timePicker">
+            </a>
+          </li>
+          <li><a class="dropdown-item" href="#">Delete reminder</a></li>
+        </ul>
+      </div>
+    </ul>
+  </div>
+
+
+  <div class="b-example-divider b-example-vr"></div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  --></body> 
+</html>

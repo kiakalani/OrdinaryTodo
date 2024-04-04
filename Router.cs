@@ -4,12 +4,13 @@ abstract class RestRouter
 {
 
     private string baseUrl;
+    protected AppDbContext db {get;}
     protected class RouteMethod{
-        private string method;
+        private readonly string method;
         public string Method {
             get {return method;}
         }
-        private Delegate del;
+        private readonly Delegate del;
         public Delegate Del {
             get {return this.del;}
         }
@@ -19,9 +20,10 @@ abstract class RestRouter
         }
         
     }
-    public RestRouter(string baseName, WebApplication app)
+    public RestRouter(string baseName, WebApplication app, AppDbContext db)
     {
         this.baseUrl = baseName;
+        this.db = db;
         Dictionary<string, RouteMethod> pages = setupRoutes();
         foreach(string page in pages.Keys) {
             string url = baseUrl + '/' + page;
@@ -35,8 +37,6 @@ abstract class RestRouter
             }
         }
     }
-
     abstract protected Dictionary<string, RouteMethod> setupRoutes();
-
 
 }

@@ -1,9 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<AppDbContext> (options => {
+    options.UseSqlite(builder.Configuration.GetConnectionString("TodoDB"));
+});
 
 var app = builder.Build();
+AppDbContext db = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

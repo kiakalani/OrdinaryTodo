@@ -1,5 +1,5 @@
 @page "/home"
-@model TasksPageModel
+@model HomePageModel
 <!doctype html>
 <html lang="en">
   <head>
@@ -40,13 +40,13 @@
 </svg>
 
 <main class="d-flex flex-nowrap">
-
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-success-subtle" style="width: 280px;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
       <span class="fs-4">To Do List</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
+
       <li class="nav-item">
         <a href="#" class="nav-link active" aria-current="page">
           <svg class="bi bi-sun me-2" width="16" height="16"><use xlink:href="#sun"/></svg>
@@ -59,24 +59,37 @@
           Planned
         </a>
       </li>
+
+    @if (Model.ViewModel.Lists != null && Model.ViewModel.Lists.Count > 0)
+    {
+      @foreach (var list in Model.ViewModel.Lists)
+      {
+        <li>
+          <a href="#" class="nav-link link-body-emphasis">
+            @list
+          </a>
+        </li>
+      }
+    } 
     </ul>
-    <hr>
-    <div class="new-list">
-      <a href="#" class="nav-link link-body-emphasis">
-        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#plus"/></svg>
-        New List
-      </a>
-    </div>
+    <form method="post" class="mt-auto">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" asp-for="ViewModel.NewList" placeholder="+  New List" aria-label="List name" aria-describedby="button-addon">
+        <!-- when user presses enter, the list is added
+        d-none is used to hide the button -->
+        <button class="btn d-none" type="submit" id="button-addon" asp-page-handler="AddList"></button>
+      </div>
+    </form>
   </div>
 
   <div class="vr"></div>
 
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-info-subtle" style="width: 500px;">
 
-    @if (Model.Tasks != null && Model.Tasks.Count > 0)
+    @if (Model.ViewModel.Tasks != null && Model.ViewModel.Tasks.Count > 0)
     {
       <ul class="list-group">
-        @foreach (var task in Model.Tasks)
+        @foreach (var task in Model.ViewModel.Tasks)
         {
           <li class="list-group-item d-flex gap-3">
             <input class="form-check-input flex-shrink-0" type="checkbox" style="font-size: 1.375em;">
@@ -89,7 +102,7 @@
     }
     <form method="post" class="mt-auto">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" asp-for="NewTask" placeholder="+  Add a task" aria-label="Task name" aria-describedby="button-addon">
+        <input type="text" class="form-control" asp-for="ViewModel.NewTask" placeholder="+  Add a task" aria-label="Task name" aria-describedby="button-addon">
         <!-- when user presses enter, the task is added
         d-none is used to hide the button -->
         <button class="btn d-none" type="submit" id="button-addon" asp-page-handler="AddTask"></button>
@@ -162,7 +175,6 @@
       </div>
     </ul>
   </div>
-
 
   <div class="b-example-divider b-example-vr"></div>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -14,8 +14,9 @@ public class TodoAdditions: RestRouter {
             {"category", getCategory()},
             {"category/add", addCategory()},
             {"category/delete", deleteCategory()},
-            {"item", getItems()}
-
+            {"item", getItems()},
+            {"item/add", addItem()},
+            {"item/delete", deleteItem()}
         };
     }
 
@@ -111,6 +112,78 @@ public class TodoAdditions: RestRouter {
                 {"status", element.status.ToString()},
                 {"importance", element.importance.ToString()}
             }));
+        });
+    }
+    /// <summary>
+    /// Method for adding an item to the 
+    /// </summary>
+    /// <returns></returns>
+    private RouteMethod addItem()
+    {
+        return new RouteMethod("POST", (JsonElement e) => {
+            Dictionary<string, string>? items = e.Deserialize<Dictionary<string, string>>();
+            if (items != null)
+            {
+                string? for_category = items.GetValueOrDefault("for_category");
+                string? name = items.GetValueOrDefault("name");
+                string? due_date = items.GetValueOrDefault("due_date");
+                string? status = items.GetValueOrDefault("status");
+                string? importance = items.GetValueOrDefault("importance");
+                if (for_category == null || name == null || due_date == null || status == null || importance == null)
+                {
+                    return Results.StatusCode(400);
+                }
+                UInt64 due = 0;
+                int st = -1;
+                int imp = -1;
+                try {
+                    due = Convert.ToUInt64(due_date!);
+                    st = Convert.ToInt32(status!);
+                    imp = Convert.ToInt32(imp!);
+                    if (st < 0 || st > 4 || imp < 0 || imp > 2) {
+                        return Results.StatusCode(400);
+                    }
+                } catch(FormatException)
+                {
+                    return Results.StatusCode(400);
+                }
+                if (
+                    db.categories.Find(for_category) == null ||
+                    db.items.Where(item => item.name.Equals(name) && item.for_category.Equals(for_category)).Count() != 0
+                )
+                {
+                    return Results.StatusCode(400);
+                }
+                db.items.Add(new TodoItem(name, for_category, due, (TodoItem.Status)st, (TodoItem.Importance)imp));
+                db.SaveChanges();
+                return Results.StatusCode(200);
+
+            }
+            return Results.StatusCode(400);
+        });
+    }
+    private RouteMethod deleteItem()
+    {
+        return new RouteMethod("POST", (JsonElement element) => {
+            Dictionary<string, string>? its = element.Deserialize<Dictionary<string, string>>();
+            if (its != null)
+            {
+                string? name = its.GetValueOrDefault("name");
+                string? category = its.GetValueOrDefault("category");
+                if (name != null && category != null)
+                {
+                    bool deleted = false;
+                    foreach(TodoItem i in db.items.Where(e=>e.name.Equals(name) && e.for_category.Equals(category)))
+                    {
+                        db.reminders.Where(r=>r.for_item.Equals(i.name) && r.for_category.Equals(i.status)).Delete();
+                        db.items.Remove(i);
+                        deleted = true;
+                    }
+                    return Results.StatusCode(deleted ? 200 : 400);
+                }
+            }
+
+            return Results.StatusCode(400);
         });
     }
 }

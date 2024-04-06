@@ -139,7 +139,7 @@ public class TodoAdditions: RestRouter {
                 try {
                     due = Convert.ToUInt64(due_date!);
                     st = Convert.ToInt32(status!);
-                    imp = Convert.ToInt32(imp!);
+                    imp = Convert.ToInt32(importance!);
                     if (st < 0 || st > 4 || imp < 0 || imp > 2) {
                         return Results.StatusCode(400);
                     }
